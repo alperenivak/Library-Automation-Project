@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Rezervasyon - Kütüphane Yönetim Sistemi</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="student-mainpage.html">
+                <img src="resim/dauu.png" alt="Okul Logosu" style="height: 30px; margin-right: 10px;">
+                Kütüphane Yönetim Sistemi
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="student-mainpage.html"><i class="bi bi-house-door"></i> Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="student-dashboard.html"><i class="bi bi-people"></i>Öğrenci Paneli</a>
+                    </li>
+                    <li class="nav-item">
+                        <li class="nav-item">
+                            <a class="nav-link" href="student-reservations.html"><i class="bi bi-calendar-check"></i> Rezervasyonlar</a>
+                        </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="position-relative me-3">
+                        <i class="bi bi-bell fs-5 text-white"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> Kullanıcı Adı
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item active" href="#"><i class="bi bi-person"></i> Profil</a></li>
+                            <li><a class="dropdown-item" href="student-settings.html"><i class="bi bi-gear"></i> Ayarlar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="bi bi-box-arrow-right"></i> Çıkış</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col">
+                <h2>Yeni Rezervasyon</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="reservationForm" onsubmit="return createReservation(event)">
+                            <div class="mb-3">
+                                <label for="bookSearch" class="form-label">Kitap Ara</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="bookSearch" placeholder="Kitap adı veya yazar giriniz...">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="searchBooks()">Ara</button>
+                                </div>
+                            </div>
+
+                            <div id="searchResults" class="mb-4" style="display: none;">
+                                <h5 class="mb-3">Arama Sonuçları</h5>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action" onclick="selectBook(1)">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Suç ve Ceza</h6>
+                                            <small>Fyodor Dostoyevski</small>
+                                        </div>
+                                        <p class="mb-1">Klasik Rus edebiyatının en önemli eserlerinden biri.</p>
+                                        <small>ISBN: 978-975-08-1234-5</small>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" onclick="selectBook(2)">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">1984</h6>
+                                            <small>George Orwell</small>
+                                        </div>
+                                        <p class="mb-1">Distopik bir dünya tasviri.</p>
+                                        <small>ISBN: 978-975-08-5678-9</small>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div id="selectedBook" class="mb-4" style="display: none;">
+                                <h5 class="mb-3">Seçilen Kitap</h5>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title" id="selectedBookTitle"></h5>
+                                        <h6 class="card-subtitle mb-2 text-muted" id="selectedBookAuthor"></h6>
+                                        <p class="card-text" id="selectedBookDescription"></p>
+                                        <p class="card-text"><small class="text-muted" id="selectedBookIsbn"></small></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="reservationDate" class="form-label">Rezervasyon Tarihi</label>
+                                <input type="date" class="form-control" id="reservationDate" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="returnDate" class="form-label">Tahmini İade Tarihi</label>
+                                <input type="date" class="form-control" id="returnDate" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="notes" class="form-label">Notlar</label>
+                                <textarea class="form-control" id="notes" rows="3" placeholder="Varsa özel isteklerinizi buraya yazabilirsiniz..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Rezervasyon Oluştur</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        function searchBooks() {
+            const searchTerm = document.getElementById('bookSearch').value;
+            if (searchTerm.length > 0) {
+                // Burada normalde bir API çağrısı yapılır
+                document.getElementById('searchResults').style.display = 'block';
+            }
+        }
+
+        function selectBook(bookId) {
+            // Burada normalde bir API çağrısı yapılır ve kitap detayları alınır
+            document.getElementById('selectedBook').style.display = 'block';
+            document.getElementById('searchResults').style.display = 'none';
+            
+            // Örnek veri
+            document.getElementById('selectedBookTitle').textContent = 'Suç ve Ceza';
+            document.getElementById('selectedBookAuthor').textContent = 'Fyodor Dostoyevski';
+            document.getElementById('selectedBookDescription').textContent = 'Klasik Rus edebiyatının en önemli eserlerinden biri.';
+            document.getElementById('selectedBookIsbn').textContent = 'ISBN: 978-975-08-1234-5';
+        }
+
+        function createReservation(event) {
+            event.preventDefault();
+            
+            const bookTitle = document.getElementById('selectedBookTitle').textContent;
+            const reservationDate = document.getElementById('reservationDate').value;
+            const returnDate = document.getElementById('returnDate').value;
+            const notes = document.getElementById('notes').value;
+
+            if (!bookTitle) {
+                alert('Lütfen bir kitap seçin!');
+                return false;
+            }
+
+            // Burada normalde bir API çağrısı yapılır
+            alert('Rezervasyon başarıyla oluşturuldu!');
+            window.location.href = 'student-reservations.html';
+            
+            return false;
+        }
+    </script>
+</body>
+</html> 

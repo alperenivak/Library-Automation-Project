@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezervasyonlarım - Kütüphane Yönetim Sistemi</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="student-mainpage.html">
+                <img src="resim/dauu.png" alt="Okul Logosu" style="height: 30px; margin-right: 10px;">
+                Kütüphane Yönetim Sistemi
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="student-mainpage.html"><i class="bi bi-house-door"></i> Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="student-dashboard.html"><i class="bi bi-people"></i>Öğrenci Paneli</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="student-reservations.html"><i class="bi bi-calendar-check"></i> Rezervasyonlar</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="position-relative me-3">
+                        <i class="bi bi-bell fs-5 text-white"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> Kullanıcı Adı
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="student-profile.html"><i class="bi bi-person"></i> Profilim</a></li>
+                            <li><a class="dropdown-item" href="student-settings.html"><i class="bi bi-gear"></i> Ayarlar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="bi bi-box-arrow-right"></i> Çıkış</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col">
+                <h2>Rezervasyonlarım</h2>
+            </div>
+            <div class="col-auto">
+                <a href="student-reservation-menu.html" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Yeni Rezervasyon
+                </a>
+            </div>
+        </div>
+
+        <!-- Aktif Rezervasyonlar -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Aktif Rezervasyonlar</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Kitap Adı</th>
+                                <th>Yazar</th>
+                                <th>Rezervasyon Tarihi</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Suç ve Ceza</td>
+                                <td>Fyodor Dostoyevski</td>
+                                <td>15.03.2024</td>
+                                <td><span class="badge bg-warning">Beklemede</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" onclick="cancelReservation(1)">İptal Et</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1984</td>
+                                <td>George Orwell</td>
+                                <td>14.03.2024</td>
+                                <td><span class="badge bg-success">Onaylandı</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" onclick="viewDetails(2)">Detaylar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geçmiş Rezervasyonlar -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Geçmiş Rezervasyonlar</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Kitap Adı</th>
+                                <th>Yazar</th>
+                                <th>Rezervasyon Tarihi</th>
+                                <th>İade Tarihi</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sefiller</td>
+                                <td>Victor Hugo</td>
+                                <td>01.02.2024</td>
+                                <td>15.02.2024</td>
+                                <td><span class="badge bg-success">Tamamlandı</span></td>
+                            </tr>
+                            <tr>
+                                <td>Suç ve Ceza</td>
+                                <td>Fyodor Dostoyevski</td>
+                                <td>10.01.2024</td>
+                                <td>25.01.2024</td>
+                                <td><span class="badge bg-success">Tamamlandı</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        function cancelReservation(reservationId) {
+            if (confirm('Bu rezervasyonu iptal etmek istediğinizden emin misiniz?')) {
+                // Burada normalde bir API çağrısı yapılır
+                alert('Rezervasyon iptal edildi!');
+            }
+        }
+
+        function viewDetails(reservationId) {
+            // Burada normalde rezervasyon detayları gösterilir
+            alert('Rezervasyon detayları gösterilecek!');
+        }
+    </script>
+</body>
+</html> 
